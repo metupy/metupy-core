@@ -44,19 +44,12 @@ jobs:
           body: |
             ## Metupy Core ${{ github.ref_name }}
 
-            ### What's Changed
-            See the full commit history: https://github.com/metupy/metupy-core/commits/main/
-
             ### Installation
             ```bash
             pip install metupy-core==${{ github.ref_name }}
             # or
             uv add metupy-core==${{ github.ref_name }}
             ```
-
-            ### Status
-            - Build completed
-            - Tests skipped
           files: |
             dist/*.tar.gz
             dist/*.whl
