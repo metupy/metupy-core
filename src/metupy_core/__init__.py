@@ -9,8 +9,8 @@ Supported formats: .pym, .py, .md, .rst
 License: MIT
 """
 
-__version__ = "0.1.0"
-__author__ = "Metupy Team"
+__version__ = "0.1.1"
+__author__ = "PalembangPy Community"
 __license__ = "MIT"
 
 # ─── Core Exports ───
