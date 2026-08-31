@@ -53,7 +53,6 @@ class ParsedContent:
 
 
 # ─── Lark Grammar Definition ───
-# SESUAI FORMAT: Frontmatter key: value + --- + Konten dengan Jinja2
 
 PYM_GRAMMAR = r"""
 start: document
