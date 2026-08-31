@@ -57,42 +57,33 @@ class ParsedContent:
 
 PYM_GRAMMAR = r"""
 start: document
-
 document: frontmatter? separator? content_section
 
-// ═══════════════════════════════════════════════════════
-// FRONTMATTER — key: value di awal file
-// ═══════════════════════════════════════════════════════
+// FRONTMATTER — key: value at start of file
 frontmatter: (fm_line)+
 fm_line: FIELD_KEY ":" _SP? FIELD_VALUE? _NEWLINE?
-
 FIELD_KEY: /[A-Za-z0-9_-]+/
 FIELD_VALUE: /.*?(?=\n|$)/
-
 _NEWLINE: /\n/
 _SP: /[ \t]+/
 
-// ═══════════════════════════════════════════════════════
 // SEPARATOR — ---
-// ═══════════════════════════════════════════════════════
 separator: SEP_LINE
 SEP_LINE: /^[-─]{3,}\s*$/
 
-// ═══════════════════════════════════════════════════════
 // CONTENT — Template Nodes & Text
-// ═══════════════════════════════════════════════════════
-content_section: (node | text_node)*
-
+content_section: (node | text_node | line_comment)*
 node: loop_block
     | conditional_block
     | variable
     | comment_block
 
-// ═══════════════════════════════════════════════════════
-// CONTROL STRUCTURES — Loops & Conditionals
-// ═══════════════════════════════════════════════════════
-loop_block: FOR_OPEN expression TAG_CLOSE content_section FOR_END_OPEN TAG_CLOSE
+// LINE COMMENT — // single line comment
+line_comment: LINE_CM comment_text? _NEWLINE?
+LINE_CM: "//"
 
+// CONTROL STRUCTURES — Loops & Conditionals
+loop_block: FOR_OPEN expression TAG_CLOSE content_section FOR_END_OPEN TAG_CLOSE
 conditional_block: if_part elif_part* else_part? IF_END_OPEN TAG_CLOSE
 if_part: IF_OPEN expression TAG_CLOSE content_section
 elif_part: ELIF_OPEN expression TAG_CLOSE content_section
@@ -100,7 +91,6 @@ else_part: ELSE_OPEN TAG_CLOSE content_section
 
 FOR_OPEN: "{%"i _SP? "for"i _SP?
 FOR_END_OPEN: "{%"i _SP? "endfor"i _SP?
-
 IF_OPEN: "{%"i _SP? "if"i _SP?
 ELIF_OPEN: "{%"i _SP? "elif"i _SP?
 ELSE_OPEN: "{%"i _SP? "else"i _SP?
@@ -108,33 +98,23 @@ IF_END_OPEN: "{%"i _SP? "endif"i _SP?
 
 expression: /[^%}]+(?=%})/s
 
-// ═══════════════════════════════════════════════════════
 // VARIABLES — {{ var_name }}
-// ═══════════════════════════════════════════════════════
 variable: VAR_OPEN var_name VAR_CLOSE
 var_name: /[^}]+/
-
 VAR_OPEN: "{{"
 VAR_CLOSE: "}}"
 
-// ═══════════════════════════════════════════════════════
 // COMMENT BLOCK — {# ... #}
-// ═══════════════════════════════════════════════════════
 comment_block: CM_OPEN comment_text CM_CLOSE
-comment_text: /.*?(?=#})/s
-
+comment_text: /(?:.(?!#}))*/s
 CM_OPEN: "{#"
 CM_CLOSE: "#}"
 
-// ═══════════════════════════════════════════════════════
-// TEXT — Plain text (harus di akhir agar tidak memakan tag)
-// ═══════════════════════════════════════════════════════
+// TEXT — Plain text
 text_node: TEXT_FRAGMENT+
-TEXT_FRAGMENT: /(?:[^#<{]|{(?!{)|{(?!%)|<(?!\/))+/
+TEXT_FRAGMENT: /(?:[\/#<{]|{(?!{)|{(?!%)|<(?!\/)|\/(?!\/))?[^\/#<{]*/
 
-// ═══════════════════════════════════════════════════════
 // TERMINALS
-// ═══════════════════════════════════════════════════════
 TAG_CLOSE: "%}"
 
 %ignore _NEWLINE
