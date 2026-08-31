@@ -56,7 +56,7 @@ class Config:
             raise ConfigError(
                 f"pymconfig.py not found.\n"
                 f"Searched in:\n  {searched}\n"
-                f"Run `metupy init` to create a new project."
+                f"Run `pym init` to create a new project."
             )
 
         # Load as module

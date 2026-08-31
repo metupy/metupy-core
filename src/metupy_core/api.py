@@ -17,7 +17,7 @@ Endpoints:
     GET  /api/v1/health           — Health check
 
 Usage:
-    from metupy.api import create_api_app
+    from metupy_core.api import create_api_app
     app = create_api_app()
 """
 

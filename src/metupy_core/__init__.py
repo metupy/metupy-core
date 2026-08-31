@@ -15,7 +15,7 @@ __license__ = "MIT"
 
 # ─── Core Exports ───
 
-from .logging import log, setup_logging
+from .logging import log
 from .setting import Setting, load_setting, NavItem
 from .signal import on, off, emit, connect, disconnect, list_signals, reset
 from .utils import (
@@ -95,7 +95,6 @@ __all__ = [
     # Core
     "__version__",
     "log",
-    "setup_logging",
     # Settings
     "Setting",
     "load_setting",

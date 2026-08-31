@@ -9,7 +9,7 @@ and delegates parsing to the appropriate format-specific parser.
 Supported extensions: .pym, .py, .md, .rst
 
 Usage:
-    from metupy.readers import read_and_parse
+    from metupy_core.readers import read_and_parse
 
     result = read_and_parse("content/index.pym")
     print(result.metadata, result.content)

@@ -10,7 +10,7 @@ Component system following shadcn/ui pattern:
 
 Workflow:
   1. Use <Button /> in .pym → uses built-in component
-  2. Run `metupy add Button` → copies template to ./components/Button.py
+  2. Run `pym add Button` → copies template to ./components/Button.py
   3. Edit components/Button.py → changes apply automatically on next build
   4. Delete the file → falls back to built-in component
 """

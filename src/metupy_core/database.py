@@ -7,7 +7,7 @@ All models use UUID v4 as primary key — consistent across system & user data.
 Default: SQLite (embedded, zero-config, works everywhere).
 
 Usage:
-    from metupy.database import db, Content
+    from metupy_core.database import db, Content
     content = Content.get(Content.uuid == "550e8400-e29b-41d4-a716-446655440000")
 """
 
