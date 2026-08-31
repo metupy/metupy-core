@@ -9,7 +9,7 @@ Supported formats: .pym, .py, .md, .rst
 License: MIT
 """
 
-__version__ = "0.1.2-snap"
+__version__ = "0.1.3"
 __author__ = "PalembangPy Community"
 __license__ = "MIT"
 
