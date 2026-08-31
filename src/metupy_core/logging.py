@@ -8,6 +8,7 @@ Direct print() calls in core code are strictly prohibited.
 Provides consistent formatting, color support, and configurable verbosity.
 """
 
+import os
 import sys
 from typing import Optional
 from enum import Enum
@@ -40,7 +41,7 @@ def _supports_color() -> bool:
     if not sys.stdout.isatty():
         return False
     if sys.platform.startswith("win"):
-        return "WT_SESSION" in sys.environ or "TERM_PROGRAM" in sys.environ
+       return "WT_SESSION" in os.environ or "TERM_PROGRAM" in os.environ
     return True
 
 
